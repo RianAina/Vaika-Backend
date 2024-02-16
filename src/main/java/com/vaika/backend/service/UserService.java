@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -22,6 +22,10 @@ public class UserService {
         }
         if (!user.getEmail().contains(".")) {
             throw new RuntimeException("votre mail est invalide");
+        }
+        Optional<User> userOptional=this.userRepository.findByEmail(user.getEmail());
+        if (userOptional.isPresent()) {
+            throw new RuntimeException("votre mail est deja utilisé");
         }
         String mdpEncode= this.bCryptPasswordEncoder.encode(user.getPassword());
         Roles userRole= new Roles();
