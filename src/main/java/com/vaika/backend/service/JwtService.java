@@ -1,6 +1,7 @@
 package com.vaika.backend.service;
 
 import com.vaika.backend.entity.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
+import java.util.function.Function;
+
 @AllArgsConstructor
 @Service
 public class JwtService {
@@ -45,11 +48,24 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return null;
+        return this.getClaim(token, Claims::getSubject);;
     }
 
     public boolean isTokenExpired(String token) {
-        return true;
+        Date expirationDate = this.getClaim(token, Claims::getExpiration);
+        return expirationDate.before(new Date());
+    }
+    private <T> T getClaim(String token, Function<Claims, T> function){
+        Claims claims = getAllClaims(token);
+            return function.apply(claims);
+    }
+
+    private Claims getAllClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(this.getKey())
+                .build()
+                .parseClaimsJwt(token)
+                .getBody();
     }
 }
 
