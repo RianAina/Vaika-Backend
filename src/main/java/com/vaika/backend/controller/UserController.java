@@ -33,10 +33,10 @@ public class UserController {
     @PostMapping("/connexion")
     public Map<String,String> connexion(@RequestBody AuthentificationDTO authentificationDTO){
         final Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authentificationDTO.username(), authentificationDTO.password())
+                new UsernamePasswordAuthenticationToken(authentificationDTO.email(), authentificationDTO.password())
         );
         if (authenticate.isAuthenticated()){
-            return this.jwtService.generate(authentificationDTO.username());
+            return this.jwtService.generate(authentificationDTO.email());
         }
         return null;
     }

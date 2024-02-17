@@ -16,11 +16,11 @@ import java.util.Map;
 public class JwtService {
     public final String ENCRIPTION_KEY = "b11f245de47fd67f0215b7e30f7bf4337c39e76fd87148305397344aa8a4c92f";
     private UserService userService;
-    public Map<String,String> generate(String username){
-        User user = (User) this.userService.loadUserByUsername(username);
+    public Map<String,String> generate(String email){
+        User user = (User) this.userService.loadUserByUsername(email);
         return this.generateJwt(user);
     }
-
+    /*claims = les informations que l'on veut transmettre pour les utilisateur*/
     private Map<String, String> generateJwt(User user) {
         final Map<String, String> claims = Map.of(
                 "nom", user.getName(),
@@ -34,7 +34,7 @@ public class JwtService {
                 .setExpiration(new Date(expirationTime))
                 .setSubject(user.getEmail())
                 .setClaims(claims)
-                .signWith(getKey(), SignatureAlgorithm.ES256)
+                .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
         return Map.of("token",token);
     }
