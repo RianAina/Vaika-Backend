@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-@NoArgsConstructor
+
 @AllArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
