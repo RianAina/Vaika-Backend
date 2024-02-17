@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
 @Slf4j
 @AllArgsConstructor
 @RestController
@@ -18,5 +21,10 @@ public class UserController {
     public void inscription(@RequestBody User user){
         log.info("inscription");
         this.userService.inscription(user);
+    }
+
+    @PostMapping("/connexion")
+    public Map<String,String> connexion(){
+        return null;
     }
 }
