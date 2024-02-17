@@ -43,6 +43,14 @@ public class JwtService {
         final byte[] decoder = Decoders.BASE64.decode(ENCRIPTION_KEY);
         return Keys.hmacShaKeyFor(decoder);
     }
+
+    public String extractUsername(String token) {
+        return null;
+    }
+
+    public boolean isTokenExpired(String token) {
+        return true;
+    }
 }
 
 

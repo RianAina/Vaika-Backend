@@ -21,6 +21,11 @@ import static org.springframework.http.HttpMethod.POST;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    private final JwtFilter jwtFilter;
+
+    public SecurityConfiguration(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -36,7 +41,7 @@ public class SecurityConfiguration {
                         .sessionManagement(httpSecuritySessionManagementConfigurer ->
                                 httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                                 )
-                        .addFilterBefore(,UsernamePasswordAuthenticationFilter.class)
+                        .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class)
                         .build();
     }
 
