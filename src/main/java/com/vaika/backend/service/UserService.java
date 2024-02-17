@@ -5,14 +5,18 @@ import com.vaika.backend.entity.Roles;
 import com.vaika.backend.entity.User;
 import com.vaika.backend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@NoArgsConstructor
 @AllArgsConstructor
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -33,5 +37,12 @@ public class UserService {
         user.setRole(userRole);
         user.setPassword(mdpEncode);
         this.userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository
+                .findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Aucun utilisateur correspond à cet identifiant"));
     }
 }

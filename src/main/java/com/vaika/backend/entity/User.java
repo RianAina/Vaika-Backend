@@ -15,22 +15,19 @@ import java.util.Collections;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "User")
+@Table(name = "Users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     private String name;
-
-    @Column(nullable = false, unique = true)
     private String username;
-
-    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Roles role;
 
@@ -41,7 +38,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return this.password;
     }
 
     @Override

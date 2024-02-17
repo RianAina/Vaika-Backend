@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class UserController {
     private UserService userService;
-    @PostMapping("inscription")
+    @PostMapping("/inscription")
     public void inscription(@RequestBody User user){
         log.info("inscription");
         this.userService.inscription(user);
