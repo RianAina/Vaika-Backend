@@ -25,12 +25,15 @@ public class JwtService {
     }
     /*claims = les informations que l'on veut transmettre pour les utilisateur*/
     private Map<String, String> generateJwt(User user) {
-        final Map<String, String> claims = Map.of(
-                "nom", user.getName(),
-                "email", user.getEmail()
-        );
+
         final long currentTime = System.currentTimeMillis();
         final long expirationTime = currentTime+ 30*60*1000;
+
+        final Map<String, Object> claims = Map.of(
+                "nom", user.getName(),
+                Claims.EXPIRATION,new Date(expirationTime),
+                Claims.SUBJECT,user.getEmail()
+        );
 
         final String token = Jwts.builder()
                 .setIssuedAt(new Date(currentTime))
@@ -64,7 +67,7 @@ public class JwtService {
         return Jwts.parser()
                 .setSigningKey(this.getKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 }
