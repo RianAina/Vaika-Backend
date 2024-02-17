@@ -2,6 +2,7 @@ package com.vaika.backend.controller;
 
 import com.vaika.backend.dto.AuthentificationDTO;
 import com.vaika.backend.entity.User;
+import com.vaika.backend.service.JwtService;
 import com.vaika.backend.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class UserController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
+    private JwtService jwtService;
     @PostMapping("/inscription")
     public void inscription(@RequestBody User user){
         log.info("inscription");
@@ -33,7 +35,9 @@ public class UserController {
         final Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authentificationDTO.username(), authentificationDTO.password())
         );
-        log.info("resultat {}",authenticate.isAuthenticated());
+        if (authenticate.isAuthenticated()){
+            return this.jwtService.generate(authentificationDTO.username());
+        }
         return null;
     }
 }
