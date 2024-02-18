@@ -1,9 +1,13 @@
 package com.vaika.backend.service;
 
+import com.vaika.backend.entity.Car;
+import com.vaika.backend.repository.CarRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarServie {
+public class CarService {
     private final CarRepository carRepository;
 
     @Autowired
