@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -26,4 +28,7 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name="id_customer", nullable=false)
     private Customer customer;
+
+    @OneToMany(mappedBy = "order")
+    private Set<Car> cars;
 }
