@@ -15,11 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class SecurityConfiguration {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtFilter jwtFilter;
@@ -38,6 +41,7 @@ public class SecurityConfiguration {
                                 authorize -> authorize
                                         .requestMatchers(POST,"/inscription").permitAll()
                                         .requestMatchers(POST,"/connexion").permitAll()
+                                        .requestMatchers(GET,"/api/**").permitAll()
                                         .requestMatchers(POST,"/api/cars/**").permitAll()
                                         .requestMatchers(POST,"/api/brand/**").permitAll()
                                         .requestMatchers(POST,"/api/model/**").permitAll()

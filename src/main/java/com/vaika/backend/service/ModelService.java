@@ -7,6 +7,8 @@ import com.vaika.backend.repository.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ModelService {
     @Autowired
@@ -30,5 +32,9 @@ public class ModelService {
 
         modelRepository.save(model);
 
+    }
+
+    public List<Model> getAllModels() {
+        return modelRepository.findAll();
     }
 }

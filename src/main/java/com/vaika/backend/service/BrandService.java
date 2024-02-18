@@ -5,6 +5,8 @@ import com.vaika.backend.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BrandService {
     @Autowired
@@ -15,5 +17,9 @@ public class BrandService {
             throw new RuntimeException("Brand name should not be null");
         }
         brandRepository.save(brand);
+    }
+
+    public List<Brand> getAllBrands() {
+        return brandRepository.findAll();
     }
 }

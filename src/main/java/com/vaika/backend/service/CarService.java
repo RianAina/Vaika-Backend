@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
 
@@ -54,5 +56,9 @@ public class CarService {
 
         // Effectuez la création de la voiture dans la base de données
         carRepository.save(car);
+    }
+
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
     }
 }
