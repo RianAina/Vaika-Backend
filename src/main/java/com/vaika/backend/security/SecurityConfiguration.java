@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                                         .requestMatchers(POST,"/inscription").permitAll()
                                         .requestMatchers(POST,"/connexion").permitAll()
                                         .requestMatchers(POST,"/api/cars/**").permitAll()
+                                        .requestMatchers(POST,"/api/brand/**").permitAll()
                                         .anyRequest().authenticated()
                         )
                         .sessionManagement(httpSecuritySessionManagementConfigurer ->

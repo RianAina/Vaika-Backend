@@ -33,7 +33,7 @@ public class Car {
     private Boolean isSold;
 
     @ManyToOne
-    @JoinColumn(name="id_order", nullable=false)
+    @JoinColumn(name="id_order")
     private Order order;
 
     @ManyToOne
