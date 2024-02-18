@@ -35,4 +35,8 @@ public class Car {
     @ManyToOne
     @JoinColumn(name="id_order", nullable=false)
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "id_model", nullable = false)
+    private Model model;
 }
