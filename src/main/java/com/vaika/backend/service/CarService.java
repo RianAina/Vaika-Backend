@@ -50,15 +50,15 @@ public class CarService {
         car.setModel(model);
 
         // Vérifiez et créez automatiquement la couleur s'il n'existe pas
-        Color color = car.getColor();
-        if (color == null || color.getIdColor() == 0) {
-            throw new RuntimeException("Invalid color for the car");
-        }
-
-        if (!colorRepository.existsById(color.getIdColor())) {
-            colorRepository.save(color);
-        }
-        car.setColor(color);
+//        Color color = car.getColor();
+//        if (color == null || color.getIdColor() == 0) {
+//            throw new RuntimeException("Invalid color for the car");
+//        }
+//
+//        if (!colorRepository.existsById(color.getIdColor())) {
+//            colorRepository.save(color);
+//        }
+//        car.setColor(color);
 
         // Effectuez la création de la voiture dans la base de données
         carRepository.save(car);

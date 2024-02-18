@@ -41,6 +41,6 @@ public class Car {
     private Model model;
 
     @ManyToOne
-    @JoinColumn(name = "id_color",nullable = false)
+    @JoinColumn(name = "id_color")
     private Color color;
 }
