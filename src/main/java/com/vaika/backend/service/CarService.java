@@ -2,6 +2,7 @@ package com.vaika.backend.service;
 
 import com.vaika.backend.entity.*;
 import com.vaika.backend.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +32,12 @@ public class CarService {
 
         // Vérifiez et créez automatiquement le modèle s'il n'existe pas
         Model model = car.getModel();
-        if (model.getModelName() == null) {
+        if (model == null) {
             throw new RuntimeException("Invalid model for the car");
         }
-
+        System.out.println(car);
         if (!modelRepository.existsById(model.getIdModel())) {
-            modelRepository.save(model);
-            // Vérifiez et créez automatiquement la marque (Brand) s'il n'existe pas
-            Brand brand = model.getBrand();
-            if (brand == null) {
-                throw new RuntimeException("Invalid brand for the car");
-            }
-
-            if (!brandRepository.existsById(brand.getIdBrand())) {
-                brandRepository.save(brand);
-            }
+            throw new RuntimeException("Invalid model for the car");
         }
         car.setModel(model);
 

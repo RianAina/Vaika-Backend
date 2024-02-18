@@ -40,7 +40,7 @@ public class Car {
     @JoinColumn(name = "id_model", nullable = false)
     private Model model;
 
-    @ManyToOne
-    @JoinColumn(name = "id_color")
-    private Color color;
+//    @ManyToOne
+//    @JoinColumn(name = "id_color")
+//    private Color color;
 }

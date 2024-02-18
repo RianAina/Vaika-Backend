@@ -21,6 +21,6 @@ public class Color implements Serializable {
     @Column(name = "color_name")
     private String colorName;
 
-    @OneToMany(mappedBy = "color")
-    private Set<Car> cars;
+//    @OneToMany(mappedBy = "color")
+//    private Set<Car> cars;
 }
