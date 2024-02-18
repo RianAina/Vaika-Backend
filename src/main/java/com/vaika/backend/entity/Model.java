@@ -22,4 +22,8 @@ public class Model {
 
     @OneToMany(mappedBy = "model")
     private Set<Car> cars;
+
+    @ManyToOne
+    @JoinColumn(name = "id_brand" ,nullable = false)
+    private Brand brand;
 }
