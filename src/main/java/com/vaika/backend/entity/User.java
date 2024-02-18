@@ -19,7 +19,7 @@ import java.util.Collections;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id_user")
     private Long id;
     private String name;
     private String username;
@@ -30,6 +30,9 @@ public class User implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Roles role;
+
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
