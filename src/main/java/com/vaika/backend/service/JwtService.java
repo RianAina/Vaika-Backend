@@ -51,7 +51,7 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return this.getClaim(token, Claims::getSubject);;
+        return this.getClaim(token, Claims::getSubject);
     }
 
     public boolean isTokenExpired(String token) {
@@ -67,7 +67,7 @@ public class JwtService {
         return Jwts.parser()
                 .setSigningKey(this.getKey())
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJwt(token)
                 .getBody();
     }
 }

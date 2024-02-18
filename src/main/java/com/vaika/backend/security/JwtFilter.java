@@ -1,6 +1,5 @@
 package com.vaika.backend.security;
 
-import com.vaika.backend.entity.User;
 import com.vaika.backend.service.JwtService;
 import com.vaika.backend.service.UserService;
 import jakarta.servlet.FilterChain;
@@ -29,19 +28,22 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
         String email = null;
         boolean isTokenExpired = true;
+
         //'Authorization: Basic dXNlcjozNDJjZTkzOS0zMmM4LTRkNTMtOTgxYy0xYWUyOGMwMzNmMTY='
         final String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.startsWith("Basic ")){
-            token = authorization.substring(6);
+
+        if (authorization != null && authorization.startsWith("Bearer ")) {
+            token = authorization.substring(7); // Change from 6 to 7 to exclude "Bearer "
             isTokenExpired = jwtService.isTokenExpired(token);
-            jwtService.extractUsername(token);
+            email = jwtService.extractUsername(token);
         }
-        if (!isTokenExpired && email != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = (User) userService.loadUserByUsername(email);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+
+        if (!isTokenExpired && email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userService.loadUserByUsername(email);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }
